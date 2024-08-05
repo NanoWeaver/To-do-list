@@ -1,5 +1,13 @@
 import { Note } from "./Note.js";
+import { NoteList } from "./NoteList.js";
+
+
+
+
+let newList = new NoteList(document.getElementById(`app`));
+
 
 document.getElementById(`action`).addEventListener(`click`, function() {
-    let newNote = new Note(document.getElementById(`app`),prompt(`Название дела?`));
+    newList.add(prompt(`Название дела?`));
+    console.log(newList);
 })

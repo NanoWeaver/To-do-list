@@ -1,3 +1,5 @@
+import { NoteList } from "./NoteList.js";
+
 export class Note {
 
     _name = ``;
@@ -33,12 +35,18 @@ export class Note {
 
         this.name = name;
         this.done = done;
+        this.container = container;
 
         this.buttonGroup.append(this.doneButton);
         this.buttonGroup.append(this.deleteButton);
         this.item.append(this.nameSpan);
         this.item.append(this.buttonGroup);
+
+        if(container instanceof NoteList) {
+            container.list.append(this.item);
+        } else {
         container.append(this.item);
+        };
     };
 
     set name(value) {
@@ -66,6 +74,12 @@ export class Note {
 
     delete() {
         this.item.remove();
+
+        if(this.container instanceof NoteList) {
+            this.container.remove(this)
+        };
+
+        console.log(this.container);
     }
 
 };
