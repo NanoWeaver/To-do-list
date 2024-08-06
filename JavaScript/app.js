@@ -4,7 +4,8 @@ import { NoteList } from "./NoteList.js";
 
 
 
-let newList = new NoteList(document.getElementById(`app`));
+let newList = new NoteList(document.getElementById(`app`), `my`);
+
 
 
 document.getElementById(`action`).addEventListener(`click`, function() {

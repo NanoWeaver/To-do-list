@@ -66,6 +66,10 @@ export class Note {
         } else {
             this.item.classList.remove(`list-group-item-success`);
         };
+
+        if(this.container instanceof NoteList) {
+            this.container.save();
+        }
     };
 
     get done() {
@@ -78,6 +82,7 @@ export class Note {
         if(this.container instanceof NoteList) {
             this.container.remove(this)
         };
+        
 
         console.log(this.container);
     }

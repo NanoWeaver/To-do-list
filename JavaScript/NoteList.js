@@ -2,13 +2,18 @@ import { Note } from "./Note.js";
 
 export class NoteList {
     _notes = [];
-
-    constructor(container) {
+    _key = null;
+    _def = [];
+    constructor(container, key = null, def = []) {
         this.container = container;
         this.list = document.createElement(`div`);
         this.list.classList.add(`list-group`);
 
-        this.checkEmpty();
+        this._key = key;
+        this._def = def;
+
+        this.update();
+        
         container.innerHTML = ``;
         container.append(this.list);
     };
@@ -50,6 +55,8 @@ export class NoteList {
         newNote.id = this.getNewId();
         this._notes.push(newNote);
         this.checkEmpty();
+        this.save();
+        return id;
     };
 
     remove(value) {
@@ -62,6 +69,53 @@ export class NoteList {
         for (let i = 0; i < this._notes.length; i++) {
             if (this._notes[i].id == id) {
                 this._notes.splice(i,1);
+            };
+        };
+
+        
+        this.save();
+        this.checkEmpty();
+        
+    };
+
+    save() {
+        if(this._key) {
+            let saveList = [];
+
+            for (const note of this._notes) {
+                saveList.push({
+                    id : note.id ,
+                    name : note.name ,
+                    done : note.done 
+                });
+    
+                localStorage.setItem(this._key, JSON.stringify(saveList))
+            };
+        };
+    };
+
+    update() {
+        let startList = this._def;
+
+        this._notes = [];
+        this.list.innerHTML = ``;
+
+        if(this._key) {
+            let dataLS = localStorage.getItem(this._key);
+            if(dataLS !== `` && dataLS !== null) {
+                startList = JSON.parse(dataLS);
+            }
+        }
+
+        if(startList.length > 0) {
+            for (const obj of startList) {
+                let newNote = new Note(this, obj.name, obj.done);
+                if (obj.id) {
+                    newNote.id = obj.id;
+                } else {
+                    newNote.id = this.getNewId();
+                };
+                this._notes.push(newNote);
             };
         };
 
