@@ -1,14 +1,13 @@
-import { Note } from "./Note.js";
-import { NoteList } from "./NoteList.js";
+import { ToDo } from "./ToDo.js";
 
-
-
-
-let newList = new NoteList(document.getElementById(`app`), `my`);
+let app = new ToDo(document.getElementById(`app`));
+app.addUser(`Мои дела`, `my`);
+app.addUser(`Дела Насти`, `lena`);
+app.addUser(`Список покупок`, `shop`);
 
 
 
 document.getElementById(`action`).addEventListener(`click`, function() {
-    newList.add(prompt(`Название дела?`));
-    console.log(newList);
+    app.addUser(prompt(`Название вкладки`,``),1);
+    console.log(app._users);
 })
