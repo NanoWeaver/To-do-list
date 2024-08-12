@@ -1,12 +1,13 @@
 import { NoteList } from "./NoteList.js";
 
-export class ToDo {
-    _currentUser = `todo`;
-    _users = [];
-    notes = null;
+export class ToDo { // Класс приложения 
+    _currentUser = `todo`; // Ключ блокнота
+    _users = []; // Массив блокнотов
+    notes = null; //
 
+    // Место куда добавится приложение, Имя базового блокнота, его ключ, заметки по умолчанию
     constructor(container, currentTitle = `Список дел`, currentKey = `todo`, currentDef = []) {
-        this.container = container;
+        this.container = container; // Место длобавления приложения
 
         this.nav = document.createElement(`nav`);
         this.title = document.createElement(`h2`);
